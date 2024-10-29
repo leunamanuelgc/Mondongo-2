@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MenuAnimations : MonoBehaviour
 {
-    [SerializeField] private List<RectTransform> uiElements;
-    [SerializeField] private List<Vector2> originalScales;
+    [SerializeField] private List<RectTransform> uiElements = new();
+    [SerializeField] private List<Vector2> originalScales = new();
     [SerializeField] private float enterDuration = 1f;
     [SerializeField] private float exitDuration = 1f;
     [SerializeField] private float enableTime = 1f;
