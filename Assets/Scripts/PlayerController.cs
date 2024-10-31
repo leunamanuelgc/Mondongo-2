@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 1f;  // Tiempo de cooldown para el dash
 
     private Rigidbody2D rb;
-    private bool isGrounded;
+    public bool isGrounded;
     private bool isDashing;
     public bool canDash = true;
     private float horizontalInput;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
 
         // Verificar si el jugador está en el suelo usando la velocidad en Y
-        isGrounded = Mathf.Abs(rb.velocity.y) < 0.1f;
+        //isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.01f);  //Mathf.Abs(rb.velocity.y) < 0.1f;
 
         // Revisar si el jugador presiona el botón de salto
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -100,6 +100,22 @@ public class PlayerController : MonoBehaviour
             isDashing = false;
             dashCooldownTimer = dashCooldown;
             canDash = false;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == ("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == ("Ground"))
+        {
+            isGrounded = false;
         }
     }
 }
